@@ -1,0 +1,35 @@
+name: irono
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  flutter_screenutil: ^5.9.0
+  google_fonts: ^6.2.1
+  fluttertoast: ^8.2.4
+  intl_phone_field: ^3.2.0
+  provider: ^6.1.2
+  otp_text_field: ^1.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
