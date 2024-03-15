@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:irono/Screens/Home_Page/home_page.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -31,7 +32,8 @@ class _OtpPageState extends State<OtpPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                height: 100.h,width: 100.w,
+                height: 100.h,
+                width: 100.w,
                 child: Image.asset(
                   "assets/images/logo_irono.png",
                   fit: BoxFit.contain,
@@ -43,16 +45,16 @@ class _OtpPageState extends State<OtpPage> {
                   Text(
                     "Phone Verification ",
                     style: GoogleFonts.poppins(
-                        fontSize: 30.sp,
-                        fontWeight: FontWeight.w700,
-                       ),
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Text(
                     "Enter your OTP   ",
                     style: GoogleFonts.poppins(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w400,
-                        ),
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   SizedBox(
                     height: 30,
@@ -69,8 +71,7 @@ class _OtpPageState extends State<OtpPage> {
                         fieldStyle: FieldStyle.underline,
                         outlineBorderRadius: 15.r,
                         style: TextStyle(fontSize: 17),
-                        onChanged: (pin) {
-                        },
+                        onChanged: (pin) {},
                         onCompleted: (pin) {
                           print("Completed: " + pin);
                         }),
@@ -80,16 +81,13 @@ class _OtpPageState extends State<OtpPage> {
                     child: Padding(
                       padding: EdgeInsets.only(right: 5.w),
                       child: TextButton(
-                          onPressed: () {
-
-                          },
+                          onPressed: () {},
                           child: Text(
                             "Resend OTP",
                             style: GoogleFonts.poppins(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
-                              color: ColorUtils().primary
-                                ),
+                                color: ColorUtils().primary),
                           )),
                     ),
                   ),
@@ -104,10 +102,13 @@ class _OtpPageState extends State<OtpPage> {
                           backgroundColor: ColorUtils().primary,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.r), // <-- Radius
+                            borderRadius:
+                                BorderRadius.circular(10.r), // <-- Radius
                           )),
                       onPressed: () {
-
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                            (route) => false);
                       },
                       child: Text(
                         "Submit",
