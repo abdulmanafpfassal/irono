@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:irono/Screens/Home_Page/home_page.dart';
+import 'package:irono/Screens/base_screen.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -107,7 +107,7 @@ class _OtpPageState extends State<OtpPage> {
                           )),
                       onPressed: () {
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => HomePage()),
+                            MaterialPageRoute(builder: (context) => BaseScreen()),
                             (route) => false);
                       },
                       child: Text(
