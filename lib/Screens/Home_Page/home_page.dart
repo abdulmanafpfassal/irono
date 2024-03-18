@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:irono/Screens/service/service_details.dart';
 import 'package:irono/Utils/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         CircleAvatar(
                           backgroundColor: ColorUtils().pink,
-                          radius: 35.r,
+                          radius: 28.r,
                           child: Container(
                               margin: EdgeInsets.all(15),
                               child: Image.asset("assets/images/iron.png")),
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         CircleAvatar(
                           backgroundColor: ColorUtils().blue,
-                          radius: 35.r,
+                          radius: 28.r,
                           child: Container(
                               margin: EdgeInsets.all(15),
                               child: Image.asset("assets/images/laundry.png")),
@@ -161,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(35.r)),
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
-                            radius: 35.r,
+                            radius: 28.r,
                             child: Container(
                                 margin: EdgeInsets.all(15),
                                 child: Icon(Icons.arrow_forward)),
@@ -227,8 +228,17 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    serviceCard(image: "assets/images/ironing_service.jpg", service: "Ironing Service",price:  "120"),
-                    serviceCard(image: "assets/images/laundry_service.jpg", service: "Laundry Service",price:  "200"),
+                    serviceCard(
+                        image: "assets/images/ironing_service.jpg",
+                        service: "Ironing Service",
+                        price: "120"),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    serviceCard(
+                        image: "assets/images/laundry_service.jpg",
+                        service: "Laundry Service",
+                        price: "200"),
                   ],
                 ),
               )
@@ -239,98 +249,106 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container serviceCard({required String image, required String service, required String price}) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.w
-      ),
-                  padding: EdgeInsets.all(10),
-                  height: 110.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black.withOpacity(0.2)),
-                    borderRadius: BorderRadius.circular(10.r)
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                          width: 130.w,
-                          height: 130.h,
-                          child: Image.asset(
-                            image,
-                            fit: BoxFit.cover,
-                          )),
-                      SizedBox(
-                        width: 10.w,
+  Widget serviceCard(
+      {required String image, required String service, required String price}) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ServiceDetailsPage()));
+      },
+      child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: 10.w
+        // ),
+        padding: EdgeInsets.all(10),
+        height: 110.h,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black.withOpacity(0.2)),
+            borderRadius: BorderRadius.circular(10.r)),
+        child: Row(
+          children: [
+            Container(
+                width: 130.w,
+                height: 130.h,
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                )),
+            SizedBox(
+              width: 10.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      "4.8",
+                      style: GoogleFonts.inter(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w600,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                              ),
-                              SizedBox(width: 5.w,),
-                              Text(
-                                "4.8",
-                                style: GoogleFonts.inter(
-                                  fontSize: 11.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              SizedBox(width: 5.w,),
-                              Text(
-                                "(48)",
-                                style: GoogleFonts.inter(
-                                  fontSize: 11.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black.withOpacity(0.7)
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                          service,
-                            style: GoogleFonts.inter(
-                              fontSize: 11.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Price Starts From",
-                                style: GoogleFonts.inter(
-                                  fontSize: 11.sp,
-                                  fontWeight: FontWeight.w600,
-                                    color: Colors.black.withOpacity(0.7)
-                                ),
-                              ),
-                              SizedBox(height: 7.h,),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  color: Colors.green
-                                ),
-                                child: Text(
-                                  "AED ${price}",
-                                  style: GoogleFonts.inter(
-                                      fontSize: 11.sp,
-                                      fontWeight: FontWeight.w600,
-
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-
-                        ],
-                      )
-                    ],
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      "(48)",
+                      style: GoogleFonts.inter(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black.withOpacity(0.7)),
+                    ),
+                  ],
+                ),
+                Text(
+                  service,
+                  style: GoogleFonts.inter(
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                );
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Price Starts From",
+                      style: GoogleFonts.inter(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black.withOpacity(0.7)),
+                    ),
+                    SizedBox(
+                      height: 7.h,
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.r),
+                          color: Colors.green),
+                      child: Text(
+                        "AED ${price}",
+                        style: GoogleFonts.inter(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
