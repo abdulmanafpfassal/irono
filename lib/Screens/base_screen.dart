@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:irono/Profile/user_screen.dart';
 import 'package:irono/Provider/navigation_provider.dart';
 import 'package:irono/Screens/Home_Page/home_page.dart';
+import 'package:irono/Screens/Notification/notification_page.dart';
 import 'package:irono/Screens/bottom_menu_card.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +18,9 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(context.read<NavigationProvider>().initialPage == MENU.HOME){
+        if (context.read<NavigationProvider>().initialPage == MENU.HOME) {
           return true;
-        }else {
+        } else {
           context.read<NavigationProvider>().setInitialPage(MENU.HOME);
           return false;
         }
@@ -26,11 +28,15 @@ class _BaseScreenState extends State<BaseScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomMenuCard(),
-        body: Consumer<NavigationProvider>(
-          builder: (context, state, _) {
-            return state.initialPage == MENU.HOME ? HomePage() : Container();
-          }
-        ),
+        body: Consumer<NavigationProvider>(builder: (context, state, _) {
+          return state.initialPage == MENU.HOME
+              ? HomePage()
+              : state.initialPage == MENU.NOTIFICATION
+                  ? NotificationPage()
+                  : state.initialPage == MENU.MESSAGE
+                      ? UserScreen()
+                      : Container();
+        }),
       ),
     );
   }

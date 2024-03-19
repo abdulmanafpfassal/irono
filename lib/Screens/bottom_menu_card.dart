@@ -53,7 +53,7 @@ class _BottomMenuCardState extends State<BottomMenuCard> {
                 onTap: () {
                   state.setInitialPage(MENU.MESSAGE);
                 },
-                child: SvgPicture.asset("assets/images/Message.svg",
+                child: SvgPicture.asset("assets/images/Page-1.svg",
                     color: state.initialPage == MENU.MESSAGE
                         ? ColorUtils().primary
                         : ColorUtils().icon_gray)),

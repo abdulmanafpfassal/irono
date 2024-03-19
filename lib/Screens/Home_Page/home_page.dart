@@ -20,18 +20,23 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        leading: const Icon(Icons.menu),
+        // leading: const Icon(Icons.menu),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Current Location",
-              style: GoogleFonts.inter(fontSize: 10.sp),
+              style: GoogleFonts.inter(fontSize: 11.sp),
             ),
-            Text(
-              "Abu Dhabi",
-              style: GoogleFonts.inter(
-                  fontSize: 10.sp, fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                Text(
+                  "Abu Dhabi",
+                  style: GoogleFonts.inter(
+                      fontSize: 12.sp, fontWeight: FontWeight.w600),
+                ),
+                Icon(Icons.arrow_drop_down_outlined)
+              ],
             ),
           ],
         ),

@@ -17,22 +17,26 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
-                Image.asset("assets/images/laundry_service.jpg"),
+                ClipRRect(
+                  child: Image.asset("assets/images/laundry_service.jpg"),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.r), bottomRight: Radius.circular(10.r)),
+                ),
                 Container(
                   height: 160.h,
                   margin:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 30.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                          onTap: (){
+                          onTap: () {
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.arrow_back)),
@@ -79,6 +83,29 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                   ),
                 )
               ],
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "About",
+                    style: GoogleFonts.inter(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
+                    style: GoogleFonts.inter(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
             ),
             Container(
               margin: EdgeInsets.all(10.0),
@@ -261,7 +288,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                     padding: EdgeInsets.symmetric(horizontal: 5.w),
                     decoration: BoxDecoration(
                         border: Border.all(
-                          color: ColorUtils().gray,
+                          color: ColorUtils().gray.withOpacity(0.3),
                         ),
                         borderRadius: BorderRadius.circular(8.r)),
                     child: TextField(
@@ -293,45 +320,49 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Center(
                             child: Text(
-                              "Mar 22",
-                              style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                          "Mar 22",
+                          style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
+                        )),
                         decoration: BoxDecoration(
                             color: ColorUtils().primary,
                             borderRadius: BorderRadius.circular(8.r)),
                       ),
-                      SizedBox(width: 10.w,),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Container(
                         height: 40.h,
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Center(
                             child: Text(
-                              "Mar 23",
-                              style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                          "Mar 23",
+                          style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
+                        )),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: ColorUtils().primary),
                             borderRadius: BorderRadius.circular(8.r)),
                       ),
-                      SizedBox(width: 10.w,),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Container(
                         height: 40.h,
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Center(
                             child: Text(
-                              "Mar 24",
-                              style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                          "Mar 24",
+                          style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
+                        )),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: ColorUtils().primary),
@@ -369,35 +400,39 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                             color: ColorUtils().primary,
                             borderRadius: BorderRadius.circular(8.r)),
                       ),
-                      SizedBox(width: 10.w,),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Container(
                         height: 40.h,
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Center(
                             child: Text(
-                              "07:00 PM",
-                              style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                          "07:00 PM",
+                          style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
+                        )),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: ColorUtils().primary),
                             borderRadius: BorderRadius.circular(8.r)),
                       ),
-                      SizedBox(width: 10.w,),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Container(
                         height: 40.h,
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Center(
                             child: Text(
-                              "08:00 PM",
-                              style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                          "08:00 PM",
+                          style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
+                        )),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: ColorUtils().primary),
