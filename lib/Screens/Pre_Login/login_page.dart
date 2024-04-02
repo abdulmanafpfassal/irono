@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:irono/Provider/authentication_provider.dart';
 import 'package:irono/Screens/Pre_Login/otp_page.dart';
+import 'package:irono/Screens/Pre_Login/sign_up.dart';
 import 'package:irono/Utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -110,11 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                                 BorderRadius.circular(10.r), // <-- Radius
                           )),
                       onPressed: () {
-                        if(_controller.text.isNotEmpty){
-                          state.doLogin(context);                        }
+                        // if(_controller.text.isNotEmpty){
+                        //   state.doLogin(context);                        }
 
-                        // Navigator.of(context).push(
-                        //     MaterialPageRoute(builder: (context) => OtpPage()));
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => OtpPage()));
                       },
                       child: Text(
                         "Sign In",
@@ -143,12 +144,17 @@ class _LoginPageState extends State<LoginPage> {
               style: GoogleFonts.inter(
                   fontSize: 11.sp, color: Colors.grey.withOpacity(0.9)),
             ),
-            Text(
-              " Sign Up",
-              style: GoogleFonts.inter(
-                  fontSize: 11.sp,
-                  color: ColorUtils().primary,
-                  fontWeight: FontWeight.w500),
+            InkWell(
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPage()));
+              },
+              child: Text(
+                " Sign Up",
+                style: GoogleFonts.inter(
+                    fontSize: 11.sp,
+                    color: ColorUtils().primary,
+                    fontWeight: FontWeight.w500),
+              ),
             )
           ],
         ),
