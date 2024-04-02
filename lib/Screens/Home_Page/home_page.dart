@@ -344,6 +344,7 @@ class _HomePageState extends State<HomePage> {
                         style: GoogleFonts.inter(
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w600,
+                            color: Colors.white
                         ),
                       ),
                     )
