@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:irono/Provider/authentication_provider.dart';
 import 'package:irono/Screens/base_screen.dart';
+import 'package:irono/Utils/custom.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:provider/provider.dart';
 
 import '../../Utils/colors.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage({super.key});
+  final String phoneNumber;
+  OtpPage({required this.phoneNumber});
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -105,9 +109,16 @@ class _OtpPageState extends State<OtpPage> {
                             borderRadius:
                                 BorderRadius.circular(10.r), // <-- Radius
                           )),
-                      onPressed: () {
+                      onPressed: () async {
+                        LoadingOverlay.show(context);
+                        await context.read<AuthenticationProvider>().verifyOTP(
+                            otpController.toString(),
+                            widget.phoneNumber,
+                            context);
+                        LoadingOverlay.hide();
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => BaseScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => BaseScreen()),
                             (route) => false);
                       },
                       child: Text(

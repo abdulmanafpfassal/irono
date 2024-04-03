@@ -115,7 +115,9 @@ class _LoginPageState extends State<LoginPage> {
                         //   state.doLogin(context);                        }
 
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => OtpPage()));
+                            MaterialPageRoute(builder: (context) => OtpPage(
+                              phoneNumber: _controller.text,
+                            )));
                       },
                       child: Text(
                         "Sign In",
