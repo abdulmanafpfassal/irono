@@ -21,6 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  String? completeNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -100,15 +101,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 Container(
                   height: 40.h,
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: ColorUtils().primary.withOpacity(0.4)),
-                      borderRadius: BorderRadius.circular(10.r)),
+                    color: Colors.white,
+                    // border: Border.all(
+                    //     color: ColorUtils().primary.withOpacity(0.4)),
+                    // borderRadius: BorderRadius.circular(10.r)
+                  ),
                   width: MediaQuery.sizeOf(context).width,
                   child: IntlPhoneField(
                     // controller: _controller,
                     controller: phoneNumberController,
                     initialCountryCode: 'IN',
+
                     disableLengthCheck: true,
                     focusNode: focusNode,
                     decoration: InputDecoration(
@@ -116,11 +119,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontSize: 11.sp, color: Colors.grey),
                       labelText: 'Phone Number',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
+                          // borderSide: BorderSide.none,
+
                           borderRadius: BorderRadius.circular(10.r)),
                     ),
                     languageCode: "en",
                     onChanged: (phone) {
+                      completeNumber = phone.completeNumber;
                       // state.setPhoneNumber(phone.completeNumber.toString());
                     },
                     onCountryChanged: (country) {},
@@ -159,12 +164,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         firstNameController.text,
                         lastNameController.text,
                         emailController.text,
-                        phoneNumberController.text,
+                        completeNumber!.split("+")[1],
                         context);
                     LoadingOverlay.hide();
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => OtpPage(
-                              phoneNumber: phoneNumberController.text,
+                              phoneNumber: completeNumber!.split("+")[1],
                             )));
                   }
                 },

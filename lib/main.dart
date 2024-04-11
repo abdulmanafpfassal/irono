@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:irono/Provider/authentication_provider.dart';
 import 'package:irono/Provider/navigation_provider.dart';
+import 'package:irono/Provider/service_provider.dart';
 import 'package:irono/Screens/Pre_Login/intro_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context)=> NavigationProvider()),
-    ChangeNotifierProvider(create: (context)=> AuthenticationProvider())
-  ], child: MyApp(),));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => NavigationProvider()),
+      ChangeNotifierProvider(create: (context) => AuthenticationProvider()),
+      ChangeNotifierProvider(create: (context) => ServiceProvider())
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,9 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,

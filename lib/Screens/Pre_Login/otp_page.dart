@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,11 +9,13 @@ import 'package:irono/Utils/custom.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Utils/colors.dart';
 
 class OtpPage extends StatefulWidget {
   final String phoneNumber;
+
   OtpPage({required this.phoneNumber});
 
   @override
@@ -20,6 +24,7 @@ class OtpPage extends StatefulWidget {
 
 class _OtpPageState extends State<OtpPage> {
   OtpFieldController otpController = OtpFieldController();
+  String? otp;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +83,7 @@ class _OtpPageState extends State<OtpPage> {
                         onChanged: (pin) {},
                         onCompleted: (pin) {
                           print("Completed: " + pin);
+                          otp = pin;
                         }),
                   ),
                   Align(
@@ -110,16 +116,32 @@ class _OtpPageState extends State<OtpPage> {
                                 BorderRadius.circular(10.r), // <-- Radius
                           )),
                       onPressed: () async {
-                        LoadingOverlay.show(context);
-                        await context.read<AuthenticationProvider>().verifyOTP(
-                            otpController.toString(),
-                            widget.phoneNumber,
-                            context);
-                        LoadingOverlay.hide();
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => BaseScreen()),
-                            (route) => false);
+                        if (otp != null) {
+                          if (otp!.length == 4) {
+                            LoadingOverlay.show(context);
+                            final response = await context
+                                .read<AuthenticationProvider>()
+                                .verifyOTP(otp.toString(), widget.phoneNumber,
+                                    context);
+                            LoadingOverlay.hide();
+                            if (response['result']['message'] ==
+                                'User Authentication Failed !') {
+                              showToast("Invalid OTP. Authentication Failed");
+                            } else {
+                              SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                              await sharedPreferences.setString("phone_number", widget.phoneNumber);
+                              await sharedPreferences.setBool("isLoggedIn", true);
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => BaseScreen()),
+                                  (route) => false);
+                            }
+                          } else {
+                            showToast("Otp must be of 4 digits");
+                          }
+                        } else if (otp == null) {
+                          showToast("Otp must be of 4 digits");
+                        }
                       },
                       child: Text(
                         "Submit",

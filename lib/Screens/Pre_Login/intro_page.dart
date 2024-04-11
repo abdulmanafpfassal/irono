@@ -4,7 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:irono/Screens/Pre_Login/login_page.dart';
+import 'package:irono/Screens/base_screen.dart';
 import 'package:irono/Utils/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -14,6 +16,21 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends State<IntroPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 1), () async {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      var isLoggedIn = await sharedPreferences.getBool("isLoggedIn") ?? false;
+      if (isLoggedIn == false) {
+      } else {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => BaseScreen()));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

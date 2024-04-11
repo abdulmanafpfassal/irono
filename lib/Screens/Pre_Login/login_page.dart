@@ -8,6 +8,7 @@ import 'package:irono/Provider/authentication_provider.dart';
 import 'package:irono/Screens/Pre_Login/otp_page.dart';
 import 'package:irono/Screens/Pre_Login/sign_up.dart';
 import 'package:irono/Utils/colors.dart';
+import 'package:irono/Utils/custom.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   FocusNode focusNode = FocusNode();
   TextEditingController _controller = TextEditingController();
+  String? completeNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +75,9 @@ class _LoginPageState extends State<LoginPage> {
                     height: 30.h,
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                        color: ColorUtils().offWhite,
-                        borderRadius: BorderRadius.circular(10.r)),
+                    // decoration: BoxDecoration(
+                    //     color: ColorUtils().offWhite,
+                    //     borderRadius: BorderRadius.circular(10.r)),
                     width: MediaQuery.sizeOf(context).width,
                     child: IntlPhoneField(
                       controller: _controller,
@@ -86,12 +88,13 @@ class _LoginPageState extends State<LoginPage> {
                         hintStyle: GoogleFonts.poppins(fontSize: 11.sp),
                         labelText: 'Phone Number',
                         border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                            // borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(10.r)),
                       ),
                       languageCode: "en",
                       onChanged: (phone) {
                         state.setPhoneNumber(phone.completeNumber.toString());
+                        completeNumber = phone.completeNumber;
                       },
                       onCountryChanged: (country) {},
                     ),
@@ -110,14 +113,29 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius:
                                 BorderRadius.circular(10.r), // <-- Radius
                           )),
-                      onPressed: () {
+                      onPressed: () async {
                         // if(_controller.text.isNotEmpty){
                         //   state.doLogin(context);                        }
-
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => OtpPage(
-                              phoneNumber: _controller.text,
-                            )));
+                        if (_controller.text.isNotEmpty) {
+                          LoadingOverlay.show(context);
+                          final response = await context
+                              .read<AuthenticationProvider>()
+                              .doLogin(context);
+                          LoadingOverlay.hide();
+                          if (response['result']['message'] ==
+                              "User Already Exists. Provide OTP !") {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => OtpPage(
+                                      phoneNumber: completeNumber!.toString().split("+")[1],
+                                    )));
+                          } else {
+                            showToast(
+                                "You are not an existing customer. Please signup to continue");
+                          }
+                        } else {
+                          showToast(
+                              "Please enter your mobile number to continue");
+                        }
                       },
                       child: Text(
                         "Sign In",
@@ -147,8 +165,9 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 11.sp, color: Colors.grey.withOpacity(0.9)),
             ),
             InkWell(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPage()));
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SignUpPage()));
               },
               child: Text(
                 " Sign Up",
