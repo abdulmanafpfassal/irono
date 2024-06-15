@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NetworkUrls {
-  static String Basic_Url = "http://159.223.37.230:8070/";
+  static String Basic_Url = "";
 
   static String login_url = "customer/login";
   static String sign_up = "customer/sign/up";
